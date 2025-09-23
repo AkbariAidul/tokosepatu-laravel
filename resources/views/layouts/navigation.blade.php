@@ -14,6 +14,12 @@
                         {{ __('Home') }}
                     </x-nav-link>
                     
+                   @foreach ($kategoris as $kategori)
+                        <x-nav-link :href="route('kategori.show', $kategori)" :active="request()->is('kategori/' . $kategori->id . '*')">
+                            {{ $kategori->nama }}
+                        </x-nav-link>
+                    @endforeach
+
                     {{-- Tampilkan link Dashboard hanya untuk yang sudah login --}}
                     @auth
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">

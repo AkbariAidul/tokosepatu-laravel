@@ -3,9 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\Admin\ProdukController as AdminProdukController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\KategoriController as AdminKategoriController;
 use  App\Http\Controllers\Admin\PesananController;
 
 
@@ -28,6 +29,9 @@ Route::get('/', [ProdukController::class, 'index'])->name('home');
 
 // Halaman untuk menampilkan detail satu produk
 Route::get('/produk/{produk}', [ProdukController::class, 'show'])->name('produk.show');
+
+// Halaman untuk menampilkan produk berdasarkan kategori
+Route::get('/kategori/{kategori}', [KategoriController::class, 'show'])->name('kategori.show');
 
 // Rute untuk admin
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
