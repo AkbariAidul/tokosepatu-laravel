@@ -12,7 +12,7 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased" @if(session('success')) data-success-message="{{ session('success') }}" @endif>
         <div class="min-h-screen bg-gray-100 flex">
             <aside class="w-64 bg-gray-900 text-gray-300 flex-shrink-0">
                 <div class="p-4 text-xl font-bold text-white border-b border-gray-700">
@@ -79,7 +79,7 @@
                 toast: true,
                 position: 'top-end',
                 icon: 'success',
-                title: @json(session('success')),
+                title: @json(session('success')), // <-- INI PERBAIKANNYA
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
@@ -88,26 +88,40 @@
         @endif
 
         <script>
-            // Script untuk konfirmasi hapus
-            document.addEventListener('submit', function(event) {
-                if (event.target.classList.contains('delete-form')) {
-                    event.preventDefault();
-                    Swal.fire({
-                        title: 'Apakah Anda yakin?',
-                        text: "Anda tidak akan bisa mengembalikan data ini!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Ya, hapus!',
-                        cancelButtonText: 'Batal'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            event.target.submit();
-                        }
-                    });
+    // Script untuk notifikasi sukses
+    const successMessage = document.body.dataset.successMessage;
+    if (successMessage) {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: successMessage,
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+        });
+    }
+
+    // Script untuk konfirmasi hapus
+    document.addEventListener('submit', function(event) {
+        if (event.target.classList.contains('delete-form')) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Anda tidak akan bisa mengembalikan data ini!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    event.target.submit();
                 }
             });
-        </script>
+        }
+    });
+</script>
     </body>
 </html>

@@ -24,7 +24,7 @@
                 
                 <div class="mb-4">
                     <x-input-label for="nama" :value="__('Nama Produk')" />
-                    <x-text-input id="nama" class="block mt-1 w-full" type="text" name="nama" :value="old('name', $produk->name)" required autofocus />
+                    <x-text-input id="nama" class="block mt-1 w-full" type="text" name="nama" :value="old('nama', $produk->nama)" required autofocus />
                 </div>
 
                 <div class="mb-4">
